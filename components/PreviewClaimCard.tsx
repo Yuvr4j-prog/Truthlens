@@ -21,7 +21,6 @@ export const PreviewClaimCard: React.FC<PreviewClaimCardProps> = ({ claim, onAcc
   const lower = claim.assessment.toLowerCase();
   const isTrue = lower.includes('true');
   const isUnverified = lower.includes('insufficient') || lower.includes('unverified');
-  const hasFix = !isUnverified && claim.fixed_original_text !== claim.original_text;
 
   let bgColor, textColor, borderColor, icon, label;
   if (isTrue) {
@@ -78,25 +77,7 @@ export const PreviewClaimCard: React.FC<PreviewClaimCardProps> = ({ claim, onAcc
           )}
         </ul>
       </div>
-
-      {hasFix && (
-        <div className="pt-5 space-y-2">
-            <div className="flex items-center gap-2">
-                <span className="font-medium text-gray-700">Suggested Fix</span>
-            </div>
-                <div className="space-y-2 pb-2">
-                    <p className="text-gray-500 line-through">{claim.original_text}</p>
-                    <p className="text-green-700">{claim.fixed_original_text}</p>
-                </div>
-                <button
-                    onClick={() => onAcceptFix(claim)}
-                    className="w-full mt-4 px-4 py-2 bg-brand-default text-white font-semibold rounded-none hover:ring-1 transition-colors"
-                    >
-                    Accept Fix
-                </button>
-        </div>
-        )}
-
+      </div>
     </div>
   );
 };
