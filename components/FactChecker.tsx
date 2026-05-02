@@ -298,7 +298,7 @@ export default function FactChecker() {
                     <ChevronDown size={18} />
                   </>
                 )}
-              </button>>
+              </button>
 
               {showAllClaims && (
                 <div className="mt-8">
