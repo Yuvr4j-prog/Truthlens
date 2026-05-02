@@ -213,7 +213,7 @@ export default function FactChecker() {
         </p>
       </div>
 
-      <main className="flex flex-col flex-grow w-full max-w-5xl mx-auto px-6">
+      <main className="flex flex-col flex-grow w-full max-w-5xl mx-auto px-6 pb-12">
         {/* HOW IT WORKS / TRY THESE */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end w-full mb-4 opacity-0 animate-fade-up [animation-delay:400ms]">
           <div className="text-xs font-bold tracking-[0.2em] uppercase text-gray-400 mb-3 md:mb-0">
@@ -313,7 +313,7 @@ export default function FactChecker() {
         )}
       </main>
   
-      <footer className="w-full max-w-5xl mx-auto px-6 py-12 text-xs text-gray-500 mt-auto opacity-0 animate-fade-up [animation-delay:800ms] flex flex-col md:flex-row justify-between items-start md:items-center border-t border-gray-900">
+      <footer className="w-full max-w-5xl mx-auto px-6 py-12 text-xs text-gray-500 mt-auto opacity-0 animate-fade-up [animation-delay:800ms] flex flex-col md:flex-row justify-between items-start md:items-center">
         <p className="mb-2 md:mb-0">TruthLens © 2026</p>
         <p>Engine: <code className="bg-[#141414] border border-gray-800 text-gray-400 px-2 py-1 rounded-md font-mono text-[10px]">nli-distilroberta-base</code></p>
       </footer>
