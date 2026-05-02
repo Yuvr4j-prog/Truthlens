@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
+import Carousel from './ui/Carousel';
 
 interface ClaimsListResult {
   claim: string;
@@ -15,81 +16,95 @@ interface ClaimsListResultsProps {
 }
 
 const ClaimsListResults: React.FC<ClaimsListResultsProps> = ({ results }) => {
-  const getStatusBadge = (assessment: string) => {
+  const getCardStyle = (assessment: string) => {
     const lower = assessment.toLowerCase();
     const isTrue = lower.includes('true');
     const isUnverified = lower.includes('insufficient') || lower.includes('unverified');
     
-    let bgColor, textColor, borderColor, icon, label;
-    
     if (isTrue) {
-      bgColor = 'bg-green-100'; textColor = 'text-green-800'; borderColor = 'border-green-200';
-      icon = '✅'; label = 'Supported';
+      return { 
+        bg: 'bg-green-50/70', 
+        border: 'border-green-200', 
+        text: 'text-green-900', 
+        badgeText: 'text-green-800', 
+        badgeBg: 'bg-green-100/50', 
+        icon: '✅', 
+        label: 'Supported' 
+      };
     } else if (isUnverified) {
-      bgColor = 'bg-amber-100'; textColor = 'text-amber-800'; borderColor = 'border-amber-200';
-      icon = '⚠️'; label = 'Unverified';
+      return { 
+        bg: 'bg-amber-50/70', 
+        border: 'border-amber-200', 
+        text: 'text-amber-900', 
+        badgeText: 'text-amber-800', 
+        badgeBg: 'bg-amber-100/50', 
+        icon: '⚠️', 
+        label: 'Insufficient Info' 
+      };
     } else {
-      bgColor = 'bg-red-100'; textColor = 'text-red-800'; borderColor = 'border-red-200';
-      icon = '❌'; label = 'Refuted';
+      return { 
+        bg: 'bg-red-50/70', 
+        border: 'border-red-200', 
+        text: 'text-red-900', 
+        badgeText: 'text-red-800', 
+        badgeBg: 'bg-red-100/50', 
+        icon: '❌', 
+        label: 'Refuted' 
+      };
     }
-    
-    return (
-      <span 
-        className={`inline-flex items-center px-3 py-1 rounded-none text-sm font-medium ${bgColor} ${textColor} border ${borderColor}`}
-      >
-        <span className="mr-2">{icon}</span>
-        {label}
-      </span>
-    );
   };
 
   return (
-    <div className="mt-6 w-full bg-white p-6 border rounded-none shadow-sm space-y-16">
-      {results
-      .filter((result) => {
-        const lower = result.assessment.toLowerCase();
-        return !lower.includes('insufficient') && !lower.includes('unverified');
-      })
-      .map((result, index) => (
-        <div key={index} className="space-y-4">
-          <h3 className="font-semibold text-lg text-gray-900">{result.claim}</h3>
-          
-          <div className="flex items-center space-x-3">
-            {getStatusBadge(result.assessment)}
-            <span className="text-gray-600 text-sm">
-              {result.confidence_score}% Confident
-            </span>
-          </div>
-          
-          <p className="text-gray-700 mt-2">{result.summary}</p>
-          
-          <div className="mt-4">
-            <div className="flex items-center space-x-2 text-gray-700 mb-2">
-              <ChevronRight size={20} />
-              <span className="font-medium">Sources</span>
+    <div className="w-full mt-4">
+      <Carousel>
+        {results.map((result, index) => {
+          const style = getCardStyle(result.assessment);
+          return (
+            <div key={index} className={`w-full h-full flex flex-col justify-between max-w-2xl mx-auto rounded-3xl border p-8 shadow-sm space-y-6 ${style.bg} ${style.border}`}>
+              
+              <div className="flex items-start justify-between gap-4">
+                <span className={`inline-flex items-center px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest ${style.badgeBg} ${style.badgeText} border ${style.border}`}>
+                  <span className="mr-2 text-sm">{style.icon}</span>
+                  {style.label}
+                </span>
+                <span className={`text-sm font-medium ${style.badgeText} opacity-80 bg-white/40 px-3 py-1 rounded-full border ${style.border}`}>
+                  {result.confidence_score}% Confident
+                </span>
+              </div>
+
+              <h3 className={`font-serif text-2xl md:text-3xl leading-snug font-medium ${style.text}`}>{result.claim}</h3>
+              
+              <p className={`text-base leading-relaxed opacity-90 ${style.text}`}>{result.summary}</p>
+              
+              <div className={`pt-6 border-t ${style.border}`}>
+                <div className="flex items-center space-x-2 mb-4">
+                  <span className={`text-[10px] font-bold uppercase tracking-widest opacity-60 ${style.text}`}>Sources</span>
+                </div>
+                
+                <ul className={`space-y-3 pl-4 border-l-2 ${style.border}`}>
+                  {result.url_sources && result.url_sources.length > 0 ? (
+                    result.url_sources.map((source, idx) => (
+                      <li key={idx}>
+                        <a 
+                          href={source}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`hover:underline text-sm break-all opacity-80 hover:opacity-100 font-medium transition-opacity flex items-center gap-2 ${style.text}`}
+                        >
+                          <ChevronRight size={14} className="flex-shrink-0" />
+                          {source}
+                        </a>
+                      </li>
+                    ))
+                  ) : (
+                    <li className={`text-sm italic opacity-60 ${style.text}`}>No sources found — this claim could not be verified</li>
+                  )}
+                </ul>
+              </div>
             </div>
-            
-            <ul className="space-y-2 pl-6">
-              {result.url_sources && result.url_sources.length > 0 ? (
-                result.url_sources.map((source, idx) => (
-                  <li key={idx}>
-                    <a 
-                      href={source}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 hover:underline text-sm break-all"
-                    >
-                      {source}
-                    </a>
-                  </li>
-                ))
-              ) : (
-                <li className="text-amber-600 italic">No sources found — this claim could not be verified</li>
-              )}
-            </ul>
-          </div>
-        </div>
-      ))}
+          );
+        })}
+      </Carousel>
     </div>
   );
 };

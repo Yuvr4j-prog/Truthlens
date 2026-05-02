@@ -191,117 +191,131 @@ export default function FactChecker() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen z-0">
-      <div className="w-full text-center pt-12 pb-4 opacity-0 animate-fade-up [animation-delay:200ms]">
-        <h1 className="text-4xl md:text-5xl font-bold flex items-center justify-center gap-2 pb-4 tracking-tight">
-          TruthLens 🔍
+    <div className="flex flex-col min-h-screen z-0 relative w-full">
+      {/* Texture Overlay */}
+      <div className="bg-grain absolute inset-0 pointer-events-none opacity-50 mix-blend-multiply"></div>
+
+      <div className="flex justify-between items-center w-full max-w-5xl mx-auto pt-8 px-6 opacity-0 animate-fade-up">
+        <div className="text-sm font-bold tracking-widest uppercase text-gray-400">
+          AI Fact Checker
+        </div>
+        <Link href="/verify-document" className="text-white font-medium bg-gray-900 hover:bg-gray-800 hover:-translate-y-0.5 px-6 py-2.5 rounded-xl transition-all flex items-center gap-2 text-sm shadow-sm group">
+          Verify Document <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
+        </Link>
+      </div>
+
+      <div className="w-full max-w-5xl mx-auto pt-20 pb-12 px-6 opacity-0 animate-fade-up [animation-delay:200ms]">
+        <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-gray-900 mb-4">
+          Truth<span className="font-light font-serif italic text-gray-500">Lens.</span>
         </h1>
-        <p className="text-gray-500 max-w-xl mx-auto text-sm md:text-base leading-relaxed px-4">
-          Paste text from ChatGPT, Gemini, or any AI — and we'll cross-reference every claim against Wikipedia, Wikidata, and the open web.
+        <p className="text-2xl md:text-3xl font-serif text-gray-500 max-w-2xl leading-snug">
+          Don't trust. <span className="italic">Verify.</span>
         </p>
       </div>
 
-      <div className="flex justify-center mb-8 opacity-0 animate-fade-up [animation-delay:400ms]">
-        <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-full bg-white shadow-sm text-sm text-gray-600 hover:bg-gray-50 transition-colors">
-          <span className="opacity-70">💡</span> How it works <ChevronDown size={14} />
-        </button>
-      </div>
+      <main className="flex flex-col flex-grow w-full max-w-5xl mx-auto px-6">
+        {/* HOW IT WORKS / TRY THESE */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end w-full mb-4 opacity-0 animate-fade-up [animation-delay:400ms]">
+          <div className="text-xs font-bold tracking-[0.2em] uppercase text-gray-400 mb-3 md:mb-0">
+            Verify Any Claim
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs text-gray-500 mr-2 uppercase tracking-wider">Examples:</span>
+            <button type="button" onClick={loadSampleContent} className="px-4 py-1.5 text-xs font-medium bg-[#141414] border border-gray-800 rounded-full text-gray-400 hover:bg-gray-900 hover:text-gray-200 hover:-translate-y-0.5 transition-all shadow-sm">
+              Eiffel Tower
+            </button>
+            <button type="button" onClick={loadSampleContent} className="px-4 py-1.5 text-xs font-medium bg-[#141414] border border-gray-800 rounded-full text-gray-400 hover:bg-gray-900 hover:text-gray-200 hover:-translate-y-0.5 transition-all shadow-sm">
+              Science Claims
+            </button>
+            <button type="button" onClick={loadSampleContent} className="px-4 py-1.5 text-xs font-medium bg-[#141414] border border-gray-800 rounded-full text-gray-400 hover:bg-gray-900 hover:text-gray-200 hover:-translate-y-0.5 transition-all shadow-sm">
+              History
+            </button>
+          </div>
+        </div>
 
-      <main className="flex flex-col items-center flex-grow w-full max-w-4xl px-4 md:px-6">
-        <div className="w-full bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8 opacity-0 animate-fade-up [animation-delay:600ms]">
-          <h2 className="text-lg font-bold text-gray-800 mb-4">What did the AI say?</h2>
-          
-          <form onSubmit={factCheck} className="space-y-6 w-full">
+        <div className="w-full bg-[#141414] rounded-2xl rounded-tr-none shadow-sm border border-gray-800 p-6 opacity-0 animate-fade-up [animation-delay:600ms]">
+          <form onSubmit={factCheck} className="flex flex-col w-full h-full relative">
             <textarea
               ref={textareaRef}
               value={articleContent}
               onChange={(e) => setArticleContent(e.target.value)}
-              placeholder="Enter Your Content"
-              className="w-full bg-white p-4 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-brand-default resize-none min-h-[150px] max-h-[300px] overflow-auto transition-[height] duration-200 ease-in-out text-gray-700"
+              placeholder="Paste text from ChatGPT, Gemini, or any AI to cross-reference against Wikipedia, Wikidata, and the open web..."
+              className="w-full bg-transparent p-2 outline-none resize-none min-h-[160px] max-h-[400px] overflow-auto transition-[height] duration-200 ease-in-out text-gray-200 text-lg leading-relaxed placeholder:text-gray-600"
             />
 
-            {/* Try Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <span className="text-sm text-gray-400 font-medium">Try:</span>
-              <button type="button" onClick={loadSampleContent} className="px-3 py-1.5 text-xs border border-gray-200 rounded-full text-gray-600 hover:bg-gray-50 transition-colors flex items-center gap-1.5">
-                <svg className="w-3.5 h-3.5 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Eiffel Tower facts
-              </button>
-              <button type="button" onClick={loadSampleContent} className="px-3 py-1.5 text-xs border border-gray-200 rounded-full text-gray-600 hover:bg-gray-50 transition-colors flex items-center gap-1.5">
-                <svg className="w-3.5 h-3.5 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Science claims
-              </button>
-              <button type="button" onClick={loadSampleContent} className="px-3 py-1.5 text-xs border border-gray-200 rounded-full text-gray-600 hover:bg-gray-50 transition-colors flex items-center gap-1.5">
-                <svg className="w-3.5 h-3.5 opacity-50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> Historical events
-              </button>
-            </div>
-
             {error && (
-              <div className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-md text-sm flex items-center gap-2">
-                <span className="text-red-500">⚠</span> {error}
+              <div className="mt-4 p-4 bg-red-950/50 border-l-2 border-red-800 text-red-400 text-sm">
+                {error}
               </div>
             )}
 
-            <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-              <div className="text-xs text-gray-400 font-medium">
-                 {articleContent.length > 0 ? `${articleContent.split(/[.!?]+/).filter(Boolean).length} sentences detected` : ''}
+            <div className="flex items-center justify-between pt-6 mt-2">
+              <div className="text-xs font-mono text-gray-500">
+                 {articleContent.length > 0 ? `${articleContent.split(/[.!?]+/).filter(Boolean).length} sentences` : '0 sentences'}
               </div>
               <button
                 type="submit"
-                className={`text-white font-medium px-5 py-2.5 rounded-lg transition-colors flex items-center gap-2 text-sm ${
-                  isGenerating ? 'bg-gray-400' : 'bg-[#c27845] hover:bg-[#a66436]'
+                className={`text-gray-900 font-medium px-6 py-3 rounded-xl rounded-br-none transition-all flex items-center gap-2 text-sm shadow-sm ${
+                  isGenerating ? 'bg-gray-600 cursor-not-allowed text-gray-400' : 'bg-white hover:bg-gray-200 hover:-translate-y-0.5'
                 }`}
                 disabled={isGenerating}
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                {isGenerating ? 'Checking...' : 'Check this text'}
+                {isGenerating ? 'Analyzing...' : 'Verify Text'}
+                {!isGenerating && <span className="ml-1">→</span>}
               </button>
             </div>
           </form>
         </div>
 
         {isGenerating && (
-          <div ref={loadingRef} className="w-full mt-8">
+          <div ref={loadingRef} className="w-full mt-12 mb-12">
             <LoadingMessages isGenerating={isGenerating} />
           </div>
         )}
 
         {factCheckResults.length > 0 && (
-          <div className="space-y-14 mt-8 w-full mb-20">
+          <div className="space-y-12 mt-16 w-full mb-24">
+            <div className="text-xs font-bold tracking-[0.2em] uppercase text-gray-500 mb-4 border-b border-gray-800 pb-2">
+              Analysis Results
+            </div>
             <PreviewBox
               content={articleContent}
               claims={factCheckResults}
             />
-            <div className="mt-4 pt-12 opacity-0 animate-fade-up [animation-delay:800ms]">
+            <div className="mt-8 pt-8 opacity-0 animate-fade-up [animation-delay:800ms]">
               <button
                 onClick={() => setShowAllClaims(!showAllClaims)}
-                className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 font-medium"
+                className="group flex items-center space-x-2 text-gray-400 hover:text-white font-serif italic text-lg transition-colors"
               >
                 {showAllClaims ? (
                   <>
-                    <span>Hide Claims</span>
-                    <ChevronUp size={20} />
+                    <span className="border-b border-transparent group-hover:border-white transition-colors">Hide detailed claims</span>
+                    <ChevronUp size={18} />
                   </>
                 ) : (
                   <>
-                    <span>Show All Claims</span>
-                    <ChevronDown size={20} />
+                    <span className="border-b border-transparent group-hover:border-white transition-colors">Show detailed claims</span>
+                    <ChevronDown size={18} />
                   </>
                 )}
-              </button>
+              </button>>
 
               {showAllClaims && (
-                <div className="mt-4">
+                <div className="mt-8">
                   <ClaimsListResults results={factCheckResults} />
                 </div>
               )}
             </div>
-            <ShareButtons />
+            <div className="pt-8">
+              <ShareButtons />
+            </div>
           </div>
         )}
       </main>
   
-      <footer className="w-full py-8 text-center text-xs text-gray-400 mt-auto opacity-0 animate-fade-up [animation-delay:800ms]">
-        <p className="mb-2">TruthLens — Multi-source verification using Wikipedia, Wikidata, and DuckDuckGo</p>
-        <p>Cross-encoder NLI model: <code className="bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-mono">nli-distilroberta-base</code></p>
+      <footer className="w-full max-w-5xl mx-auto px-6 py-12 text-xs text-gray-500 mt-auto opacity-0 animate-fade-up [animation-delay:800ms] flex flex-col md:flex-row justify-between items-start md:items-center border-t border-gray-900">
+        <p className="mb-2 md:mb-0">TruthLens © 2026</p>
+        <p>Engine: <code className="bg-[#141414] border border-gray-800 text-gray-400 px-2 py-1 rounded-md font-mono text-[10px]">nli-distilroberta-base</code></p>
       </footer>
     </div>
   );

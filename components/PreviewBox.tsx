@@ -66,11 +66,11 @@ const PreviewBox: React.FC<PreviewBoxProps> = ({ content, claims }) => {
         
         let borderClass, hoverClass, activeClass;
         if (isTrue) {
-          borderClass = 'border-green-500'; hoverClass = 'hover:bg-green-100'; activeClass = 'bg-green-100';
+          borderClass = 'border-green-500'; hoverClass = 'hover:bg-green-950/40'; activeClass = 'bg-green-950/40';
         } else if (isUnverified) {
-          borderClass = 'border-amber-500'; hoverClass = 'hover:bg-amber-100'; activeClass = 'bg-amber-100';
+          borderClass = 'border-amber-500'; hoverClass = 'hover:bg-amber-950/40'; activeClass = 'bg-amber-950/40';
         } else {
-          borderClass = 'border-red-500'; hoverClass = 'hover:bg-red-100'; activeClass = 'bg-red-100';
+          borderClass = 'border-red-500'; hoverClass = 'hover:bg-red-950/40'; activeClass = 'bg-red-950/40';
         }
         
         segments.push(
@@ -118,7 +118,7 @@ const PreviewBox: React.FC<PreviewBoxProps> = ({ content, claims }) => {
 
       {/* Preview Box */}
       <div className="relative">
-        <div className="w-full min-h-[200px] p-6 bg-white border rounded-none shadow-sm opacity-0 animate-fade-up [animation-delay:200ms]">
+        <div className="w-full min-h-[200px] p-6 bg-[#141414] text-gray-200 border border-gray-800 rounded-xl shadow-sm opacity-0 animate-fade-up [animation-delay:200ms]">
           {highlightClaims()}
         </div>
         
@@ -126,7 +126,7 @@ const PreviewBox: React.FC<PreviewBoxProps> = ({ content, claims }) => {
         <div className="flex justify-end mt-3 mb-10 mr-5 opacity-0 animate-fade-up [animation-delay:400ms]">
           <button
             onClick={handleCopy}
-            className="flex items-center space-x-2 text-sm text-gray-600 hover:text-gray-900"
+            className="flex items-center space-x-2 text-sm text-gray-400 hover:text-white"
           >
             {copied ? (
               <>
