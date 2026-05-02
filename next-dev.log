@@ -1,0 +1,17 @@
+
+> factchecker@0.1.0 dev
+> next dev -p 3000
+
+   ▲ Next.js 14.1.1
+   - Local:        http://localhost:3000
+   - Environments: .env.local
+
+ ✓ Ready in 3.7s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 841ms (70 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 5s (556 modules)
+ ✓ Compiled in 614ms (277 modules)
+ ○ Compiling /not-found ...
+ ✓ Compiled /not-found in 1521ms (529 modules)
+ ✓ Compiled in 224ms (531 modules)

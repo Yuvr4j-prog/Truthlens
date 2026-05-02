@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 231, 231, 245;
+  --background-end-rgb: 255, 255, 255;
+
+  /* COLORS */
+  --brand-default: #c27845;
+  --brand-fainter: #e7ebfd;
+  --brand-faint: #c6cfff;
+  --brand-subtle: #a1aff7;
+  --brand-muted: #4d87e7;
+  --brand-dark: #0d2189;
+  --brand-darker: #000a40;
+
+  --secondary-accent: #9f9672;
+  --secondary-accent2x: #89805d;
+  --secondary-dark: #f4f1e7;
+  --secondary-darker: #efebdc;
+  --secondary-darkest: #e5e0cd;
+  --secondary-default: #faf7ec;
+  --secondary-faint: #fffdf5;
+  --secondary-fainter: #fffefa;
+
+  --gray-50: #fafafa;
+  --gray-100: #f5f5f5;
+  --gray-200: #e5e5e5;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --gray-600: #525252;
+  --gray-700: #404040;
+  --gray-800: #262626;
+  --gray-900: #171717;
+  --gray-950: #0a0a0a;
+
+  --black: #000000;
+  --white: #ffffff;
+
+  --accent-yellow-light: #fef3c7;
+  --accent-yellow-dark: #92400e;
+  --accent-skyblue-light: #dbeafe;
+  --accent-skyblue-dark: #1e40af;
+  --accent-green: #50b40a;
+  --accent-red: #d32f2f;
+  --accent-darkgreen-dark: #065f46;
+  --accent-darkgreen-light: #d1fae5;
+  --accent-purple-dark: #5b21b6;
+  --accent-purple-light: #ede9fe;
+  --accent-pink-dark: #9d174d;
+  --accent-pink-light: #fce7f3;
+  --accent-maroon-dark: #991b1b;
+  --accent-maroon-light: #fee2e2;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+:root {
+  --background: #faf8f5;
+  --accent: var(--brand-default);
+  --accent-background: var(--brand-default);
+}
+
+:root {
+  --border-default: var(--gray-300);
+  --border-radius-default: 2px;
+
+  /* Typography */
+  --font-family-sans: 'ABCDiatype', 'Trebuchet MS', sans-serif;
+  --font-family-serif: 'Reckless', Georgia, serif;
+  --text-light-default: #111827;
+  --text-light-muted: #6b7280;
+  --text-light-subtle: #9ca3af;
+  --text-light-faint: #e5e7eb;
+  --text-light-link: #1f40ed;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+
+  /* Apply ABCDiatype for body */
+  font-family: var(--font-abcd-diatype), sans-serif;
+}
+
+/* Apply Reckless for headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-reckless), serif;
+}
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
