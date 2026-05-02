@@ -1,6 +1,5 @@
 // PreviewBox.tsx
-import React, { useState, useEffect } from 'react';
-import { PreviewClaimCard } from './PreviewClaimCard';
+import React, { useState } from 'react';
 import { Copy, CheckCheck } from 'lucide-react';
 
 interface Claim {
@@ -20,24 +19,12 @@ interface PreviewBoxProps {
 
 const PreviewBox: React.FC<PreviewBoxProps> = ({ content, claims }) => {
   const [displayText, setDisplayText] = useState(content);
-  const [selectedClaim, setSelectedClaim] = useState<Claim | null>(null);
   const [copied, setCopied] = useState(false);
-
   // Filter out unverifiable claims
   const filteredClaims = claims.filter((claim) => {
     const lower = claim.assessment.toLowerCase();
     return !lower.includes('insufficient') && !lower.includes('unverified');
   });
-
-  const claimsNeedingFix = filteredClaims.filter(
-    (claim) => claim.assessment.toLowerCase() === 'false'
-  );
-
-  useEffect(() => {
-    if (claimsNeedingFix.length > 0 && !selectedClaim) {
-      setSelectedClaim(claimsNeedingFix[0]);
-    }
-  }, [claimsNeedingFix]);
 
   const highlightClaims = () => {
     let segments = [];
@@ -64,20 +51,19 @@ const PreviewBox: React.FC<PreviewBoxProps> = ({ content, claims }) => {
         const isTrue = lower.includes('true');
         const isUnverified = lower.includes('insufficient') || lower.includes('unverified');
         
-        let borderClass, hoverClass, activeClass;
+        let borderClass, bgClass;
         if (isTrue) {
-          borderClass = 'border-green-500'; hoverClass = 'hover:bg-green-950/40'; activeClass = 'bg-green-950/40';
+          borderClass = 'border-green-500'; bgClass = 'bg-green-950/20';
         } else if (isUnverified) {
-          borderClass = 'border-amber-500'; hoverClass = 'hover:bg-amber-950/40'; activeClass = 'bg-amber-950/40';
+          borderClass = 'border-amber-500'; bgClass = 'bg-amber-950/20';
         } else {
-          borderClass = 'border-red-500'; hoverClass = 'hover:bg-red-950/40'; activeClass = 'bg-red-950/40';
+          borderClass = 'border-red-500'; bgClass = 'bg-red-950/20';
         }
         
         segments.push(
           <span
             key={`claim-${index}`}
-            className={`cursor-pointer border-b-2 ${borderClass} ${hoverClass} ${selectedClaim === claim ? activeClass : ''}`}
-            onClick={() => setSelectedClaim(claim)}
+            className={`border-b-2 ${borderClass} ${bgClass}`}
           >
             {claim.original_text}
           </span>
@@ -97,14 +83,6 @@ const PreviewBox: React.FC<PreviewBoxProps> = ({ content, claims }) => {
     );
 
     return segments;
-  };
-
-  const acceptFix = (claim: Claim) => {
-    setDisplayText(displayText.replace(claim.original_text, claim.fixed_original_text));
-    
-    const currentIndex = claimsNeedingFix.indexOf(claim);
-    const nextClaim = claimsNeedingFix[currentIndex + 1];
-    setSelectedClaim(nextClaim || null);
   };
 
   const handleCopy = async () => {
@@ -142,13 +120,6 @@ const PreviewBox: React.FC<PreviewBoxProps> = ({ content, claims }) => {
           </button>
         </div>
       </div>
-
-      {selectedClaim && (
-        <PreviewClaimCard
-          claim={selectedClaim}
-          onAcceptFix={acceptFix}
-        />
-      )}
     </div>
   );
 };
