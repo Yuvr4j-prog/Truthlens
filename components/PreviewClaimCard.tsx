@@ -77,7 +77,6 @@ export const PreviewClaimCard: React.FC<PreviewClaimCardProps> = ({ claim, onAcc
           )}
         </ul>
       </div>
-      </div>
     </div>
   );
 };
