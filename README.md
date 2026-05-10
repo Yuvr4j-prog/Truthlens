@@ -1,8 +1,8 @@
 
 # 🔍 Hallucinations Detector
-### Powered by [Exa.ai](https://exa.ai) - The Search Engine for AIs
 
-![Screenshot](./public/opengraph-image.jpg)
+
+
 
 <br>
 
