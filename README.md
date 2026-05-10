@@ -88,32 +88,20 @@ yarn dev
 
 ## 🔑 API Keys
 
-*   Get your Exa API key from [Exa Dashboard](https://dashboard.exa.ai/api-keys)
+*   Get your Juna API key from [Exa Dashboard](https://dashboard.exa.ai/api-keys)
     
 *   Get your Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
     
 <br>
 
-## ⭐ About [Exa.ai](http://Exa.ai)
 
-This project is powered by [Exa.ai](https://exa.ai), a cutting-edge search engine designed specifically for AI applications. Exa provides:
-
-*   Advanced semantic and keyword-based search capabilities
-    
-*   Instant retrieval of clean web content
-    
-*   Customizable search parameters
-    
-*   Similarity search using URLs or text
-    
-*   Superior search capabilities compared to traditional search APIs
     
 
-[Try Exa search](https://exa.ai/search)
+
 
 <br>
 
 * * *
 
 
-Built with ❤️ by team Exa
+
