@@ -34,7 +34,6 @@ Hallucinations Detector is a free and open-source tool that helps you verify the
 <br>
 
 ## 💻 Tech Stack
-- **Search Engine**: [Exa.ai](https://exa.ai) - Advanced web search API for AI applications
 - **Frontend**: [Next.js](https://nextjs.org/docs) with App Router, [TailwindCSS](https://tailwindcss.com), TypeScript
 - **LLM**: [Google Gemini](https://ai.google.dev/gemini-api/docs) via the Vercel AI SDK
 - **AI Integration**: Gemini REST API
@@ -46,7 +45,7 @@ Hallucinations Detector is a free and open-source tool that helps you verify the
 
 ### Prerequisites
 - Node.js
-- API keys for Exa.ai and Gemini
+- API keys for Gemini
 
 ### Installation
 
@@ -69,7 +68,7 @@ yarn install
     
 
 ```
-EXA_API_KEY=your_exa_api_key
+
 GOOGLE_GENERATIVE_AI_API_KEY=your_gemini_api_key
 ```
 
@@ -88,7 +87,6 @@ yarn dev
 
 ## 🔑 API Keys
 
-*   Get your Juna API key from [Exa Dashboard](https://dashboard.exa.ai/api-keys)
     
 *   Get your Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
     
